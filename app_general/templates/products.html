@@ -1,0 +1,60 @@
+{% extends "components/base.html" %}
+{% load static %}
+
+{% block title %}
+    <title>รายการสินค้า</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header-product {
+            background-color: #333;
+            color: white;
+            padding: 10px;
+            text-align: center;
+        }
+        .product {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            display: inline-block;
+            width: 200px;
+        }
+        .product img {
+            max-width: 100%;
+        }
+        .product h2 {
+            font-size: 1.2rem;
+        }
+        .product p {
+            font-size: 1rem;
+        }
+        .product button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <header class="my-3 header-product">
+        <h1>รายการสินค้า</h1>
+    </header>
+    <main>
+        {% for product in products %}
+            <div class="product">
+                <img src="{% static product.image_relative_url %}" alt="Product 1">
+                <h2>{{ product.title }}</h2>
+                <p>${{ product.price }}</p>
+                <p>คงเหลือ {{ product.amount }} รายการ</p>
+                <button>Add to Cart</button>
+            </div>
+        {% endfor %}
+    </main>
+{% endblock %}
