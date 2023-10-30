@@ -8,3 +8,4 @@ class Product(models.Model):
     image_relative_url = models.CharField(max_length=50, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     sub_title = models.CharField(max_length=50, null=True)
+    num_purchases = models.IntegerField(default=0)
