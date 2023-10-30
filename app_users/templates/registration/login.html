@@ -1,0 +1,100 @@
+{% extends "components/base.html" %}
+{% load static %}
+
+
+{% block title %}
+    <link rel="icon" type="image/png" href="{% static 'app_users/favicon.ico' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'app_users/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app_users/font-awesome.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app_users/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app_users/hamburgers.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app_users/select2.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app_users/util.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'app_users/main.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+{% endblock %}
+
+{% block content %}
+    <h1>Homepage</h1>
+ 
+    
+    
+	<div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic js-tilt" data-tilt>
+					<img src="{% static 'app_users/img-01.png' %}" alt="IMG">
+				</div>
+
+				<form class="login100-form validate-form" method="POST">
+                    {% csrf_token %}
+					<span class="login100-form-title">
+						Log In
+					</span>
+
+					<div class="wrap-input100 validate-input" data-validate = "Username is required" >
+                        {{ form.username }}
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+                    </div>
+
+					<div class="wrap-input100 validate-input" data-validate = "Password is required">
+						{{ form.password }}
+						<span class="focus-input100"></span>
+						<span class="symbol-input100">
+							<i class="fa fa-lock" aria-hidden="true"></i>
+						</span>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<button class="login100-form-btn">
+							Login
+						</button>
+					</div>
+
+					<div class="text-center p-t-12">
+						<span class="txt1">
+							Forgot
+						</span>
+						<a class="txt2" href="forgetUserpass.html">
+							Username / Password?
+						</a>
+					</div>
+
+					<div class="text-center p-t-136">
+						<span class="txt1">
+							Don't have an account?
+						</span>
+						<a class="txt2" href="CreateAccount.html">
+							Sign up
+							<i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+						</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	
+	
+    <script src="{% static 'app_users/jquery.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'app_users/popper.js' %}"></script>
+	<script src="{% static 'app_users/bootstrap.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'app_users/select2.min.js' %}"></script>
+<!--===============================================================================================-->
+	<script src="{% static 'app_users/tilt.jquery.min.js' %}"></script>
+	<script >
+		$('.js-tilt').tilt({
+			scale: 1.1
+		})
+	</script>
+<!--===============================================================================================-->
+	<script src="{% static 'app_users/main.js' %}"></script>
+
+{% endblock %}
+
+

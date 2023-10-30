@@ -6,3 +6,5 @@ class Product(models.Model):
     price = models.IntegerField()
     amount = models.IntegerField()
     image_relative_url = models.CharField(max_length=50, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    sub_title = models.CharField(max_length=50, null=True)

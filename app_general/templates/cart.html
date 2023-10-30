@@ -1,0 +1,33 @@
+{% extends "components/base.html" %}
+{% load static %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+      <h1 class="text-center">ตะกร้าของฉัน</h1>
+      <table class="table table-dark table-striped-columns">
+          <thead>
+            <tr>
+              <th scope="col"></th>
+              <th scope="col">ชื่อสินค้า</th>
+              <th scope="col">ราคา</th>
+              <th scrop="col">จำนวน</th>
+              <th scope="col">ราคารวม</th>
+            </tr>
+          </thead>
+          <tbody>
+              {% for product in all_product %}
+              <tr>
+                  <th scope="row"><img src="{% static 'product.image_relative_url' %}"></th>
+                  <td>{{ product.name }}</td>
+                  <td>{{ product.price }}</td>
+                  <td><input type="number" style="max-width:25%;" class="mx-2" value="{{ product.amount }}" name="amount"></td>
+                  <td></td>
+              </tr>
+              {% endfor %}
+          </tbody>
+        </table>
+    {% else %}
+    <h1>คุณยังไม่ได้เข้าสู่ระบบ</h1>
+    {% endif %}
+
+{% endblock %}
