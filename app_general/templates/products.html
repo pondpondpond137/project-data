@@ -72,8 +72,9 @@
             <input type="search" class="rounded-3 search" placeholder="ค้นหาชื่อสินค้าหรือแบรนด์" id="search_bar" name="search_bar">
             <button type="submit" class="rounded-3">Search</button>
             <select name="select-sort" class="rounded-3 select-sort">
-                <option value="sort-by-price">Sort by price</option>
-                <option value="sort-by-id">Sort by name</option>
+                <option value="null"></option>
+                <option value="lowest">ขายได้น้อยที่สุด</option>
+                <option value="highest">ขายได้มากที่สุด</option>
             </select>
         </div>
     </form>
@@ -91,7 +92,8 @@
                 <h2>{{ product.title }}</h2>
                 <p>${{ product.price }}</p>
                 <p>คงเหลือ {{ product.amount }} รายการ</p>
-                <a class="btn add-btn" href="id_product={{ product.id }}">Add to Cart</a>
+                <a class="btn add-btn btn-primary mb-2" href="id_product={{ product.id }}">Add to Cart</a>
+                <p style="font-size: 10px;">ถูกซื้อแล้ว {{ product.num_purchases }} ครั้ง</p>
             </div>
         {% endfor %}
     </main>

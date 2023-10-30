@@ -74,7 +74,7 @@
                             <p class="price-product">฿{{ product.price }}</p>
                             <p style="margin-top:0; color:rgb(112, 112, 112); font-weight:lighter; font-family: sans-serif;">คงเหลือในสต๊อก {{ product.amount }} รายการ</p>
                             <hr>
-                            <p>รวมยอดของ<input type="number" style="max-width:25%;" class="mx-2" value="1" name="amount">ชิ้น</p>
+                            <p>รวมยอดของ<input type="number" style="max-width:25%;" class="mx-2" value="1" name="amount" min="1" max="{{ product.amount }}">ชิ้น</p>
                             <button type="submit" class="btn btn-warning pe-4">เพิ่มลงตะกร้า</button>
                             <hr>
                         </div>
