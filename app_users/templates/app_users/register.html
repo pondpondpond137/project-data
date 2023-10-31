@@ -1,33 +1,70 @@
 {% extends 'components/base.html' %}
 
 
-{% block content %}
-    <form action="{% url 'register' %}" method="POST">
-        {% csrf_token %}
-        {{ form.non_field_errors }}
-        <div>
-            {{ form.username.label_tag }}
-            {{ form.username }}
-            {{ form.username.errors }}
-        </div>
-        <div>
-            {{ form.email.label_tag }}
-            {{ form.email }}
-            {{ form.email.errors }}
-        </div>
-        <div>
-            {{ form.password1.label_tag }}
-            {{ form.password1 }}
-            {{ form.password.errors }}
-        </div>
-        <div>
-            {{ form.password2.label_tag }}
-            {{ form.password2 }}
-            {{ form.password2.errors }}
-        </div>
-        <p>
-            <button type="submit" class="btn btn-primary">สมัครสมาชิก</button>
-        </p>
-    </form>
+{% block title %}
+<style>
+    h2 {
+        text-align: center;
+    }
+    .wrap-app {
+        height: 100vh;
+        display:flex;
+        background: linear-gradient(-135deg, #c850c0, #4158d0);
+    }
 
+    form {
+        background-color: #fff;
+        max-width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+
+
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+    }
+
+
+    
+</style>
+{% endblock %}
+
+{% block content %}
+    <div class="" style="height: 100vh;
+    display:flex;
+    background: linear-gradient(-135deg, #c850c0, #4158d0);justify-content: center;align-items: center;">
+        <div style="background-color: white;" class="p-5 rounded-4">
+            <h2 class="mb-4">Register</h2>
+            <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {{ form.username.errors }}
+
+                {{ form.email.label_tag }}
+                {{ form.email }}
+                {{ form.email.errors }}
+
+                {{ form.password1.label_tag }}
+                {{ form.password1 }}
+                {{ form.password.errors }}
+
+                {{ form.password2.label_tag }}
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+
+                <button type="submit" class="btn btn-success rounded-4" style="width:100%; padding:10px 10px">สมัครสมาชิก</button>
+            </form>
+        </div>
+    </div>
 {% endblock %}

@@ -1,21 +1,46 @@
 {% load static %}
 
+<style>
+  .navbar{
+    font-family: 'Prompt', sans-serif;
+    font-size: 20px; /* Adjust the font size as needed */
+    line-height: 0.7; /* Adjust the line height as needed */
+  }
+
+  .navbar-brand{
+    font-family: 'Prompt', sans-serif;
+    font-size: 25px; /* Adjust the font size as needed */
+    line-height: 0.7; /* Adjust the line height as needed */
+  }
+
+  .navbar.bg-light {
+    background-color: #C9A9A6 !important;
+    .form-control {
+      border-radius: 4.25rem;
+    }
+  }
+</style>
+
 <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="{% url 'home' %}">
-          <span>PYA</span>
+          <img src="https://img.a4h6.c18.e2-4.dev/PyaResize.png" width="20" height="20" class="d-inline-block align-top" alt="">
+          PYA Shop
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ml-auto">
+        <div class="collapse navbar-collapse d-flex" id="navbarNav">
+          <ul class="navbar-nav ml-auto d-flex">
             {% if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" href="#">{{ user.username }}</a>
+              <li class="nav-item d-flex">
+                <a class="nav-link disabled" href="#" style="font-weight: 600;">{{ user.username }}</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'logout' %}">ออกจากระบบ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'password_change' %}">เปลี่ยนรหัสผ่าน</a>
               </li>
             {% else %}
               <li class="nav-item">
@@ -32,7 +57,7 @@
                 <a class="nav-link" href="{% url 'cart' %}">ตะกร้าสินค้า</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">ติดต่อเรา</a>
+                <a class="nav-link" href="{% url 'contact' %}">ติดต่อเรา</a>
               </li>
           </ul>
         </div>
