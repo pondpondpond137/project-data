@@ -1,0 +1,108 @@
+{% extends "components/base.html" %}
+{% load static %}
+
+
+{% block title %}
+    <style>
+        body {
+            font-family: 'Prompt', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1f2029 ;
+        }
+        .header-product {
+            background-color: #b06a6a ;
+            color: black;
+            padding: 10px;
+            text-align: center;
+        }
+        .product {
+            border: 1px solid #ccc;
+            margin: 10px;
+            padding: 10px;
+            display: inline-block;
+            width: 197px;
+            
+        }
+        .product img {
+            max-width: 150px;
+            max-height: 150px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            
+        }
+        .product h2 {
+            font-family: 'Prompt', sans-serif;
+            font-size: 1.2rem;
+        }
+        .product p {
+            font-family: 'Prompt', sans-serif;
+            font-size: 1rem;
+        }
+        .product button {
+            background-color: #333;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .under-header {
+            display:flex;
+        }
+        .search {
+            padding:8px 40px;
+            width: 80%;
+        }
+        .select-sort {
+            padding-right: 20px;
+            padding-left:7px;
+            width: 20%;
+        }
+        .img-search {
+            width:5px;
+        }
+        .up-sign {
+            width:5px;
+        }
+        .btn {
+            background-color: #d09696;
+        }
+    </style>
+{% endblock %}
+
+
+{% block content %}
+    <header class="my-3 header-product rounded-3">
+        <h1>รายการสินค้า</h1>
+    </header>
+    <form method="get">
+        <div class="under-header mb-5">
+            <input type="search" class="rounded-3 search" placeholder="ค้นหาชื่อสินค้าหรือแบรนด์" id="search_bar" name="search_bar">
+            <button type="submit" class="rounded-3">Search</button>
+            <select name="select-sort" class="rounded-3 select-sort">
+                <option value="sort-by-price">Sort by price</option>
+                <option value="sort-by-id">Sort by name</option>
+            </select>
+        </div>
+    </form>
+    <main>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-warning" role="alert">
+                    <strong>{{ message }}</strong>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% for product in products %}
+            <div class="product bg-light rounded-4">
+                <img src="{% static product.image_relative_url %}" alt="Product {{ product.id }}">
+                <h2>{{ product.title }}</h2>
+                <p>${{ product.price }}</p>
+                <p>คงเหลือ {{ product.amount }} รายการ</p>
+                <a class="btn add-btn" href="id_product={{ product.id }}">Add to Cart</a>
+            </div>
+        {% endfor %}
+    </main>
+    <script src="{% static 'app_general/main.js' %}"></script>
+{% endblock %}
