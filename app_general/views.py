@@ -28,29 +28,89 @@ def signin(request):
 def products(request):
     # Create Binary Search Tree
     sort_by = request.GET.get("select-sort")
-    all_purchases = [product.num_purchases for product in Product.objects.all()]
-    all_products = Product.objects.all()
-    bst = Node()
-    bst.create(all_purchases.pop(0))
     
-    while all_purchases:
-        bst.insert(all_purchases.pop(0))
+    all_products = Product.objects.all()
+    
     
     print(sort_by)
     
     if len(request.GET) > 0:
+        # all_products = Product.objects.
         # 
         # 
         #           ใช้ Binary search tree
         # 
         # 
         name_search = request.GET["search_bar"]
-        if sort_by == 'lowest':
-            lowest_purchases = bst.min().val
-            all_products = Product.objects.filter(num_purchases = lowest_purchases)
-        elif sort_by == 'highest':
-            highest_purchases = bst.max().val
-            all_products = Product.objects.filter(num_purchases = highest_purchases)
+        if sort_by == 'lowest-purchases':
+            all_purchases = [product.num_purchases for product in Product.objects.all()]
+            bst = Node()
+# ********************************************************* Create *************************************************************************
+            bst.create(all_purchases.pop(0)) 
+            # Insert
+            # O(n)
+            while all_purchases:
+                bst.insert(all_purchases.pop(0))
+
+            all_products = []
+            # Search and Delete
+            # O(n)
+            while bst:
+                lowest_purchases, bst = bst.get_min_and_delete() # O( log n)
+                products = Product.objects.filter(num_purchases = lowest_purchases)
+                for product in products:
+                    all_products.append(product)
+
+            
+        elif sort_by == 'highest-purchases':
+            all_purchases = [product.num_purchases for product in Product.objects.all()]
+            bst = Node()
+# ********************************************************* Create *************************************************************************
+            bst.create(all_purchases.pop(0))
+            # Insert
+            while all_purchases:
+                bst.insert(all_purchases.pop(0))
+
+            all_products = []
+            # Search and Delete
+            while bst:
+                highest_purchases, bst = bst.get_max_and_delete()
+                products = Product.objects.filter(num_purchases = highest_purchases)
+                for product in products:
+                    all_products.append(product)
+        
+
+        elif sort_by == 'lowest-price':
+            all_products = []
+            all_prices = [product.price for product in Product.objects.all()]
+            bst = Node()
+# ********************************************************* Create *************************************************************************
+            bst.create(all_prices.pop(0))
+            # Insert
+            while all_prices:
+                bst.insert(all_prices.pop(0))
+            # Search and Delete
+            while bst:
+                lowest_price, bst = bst.get_min_and_delete()
+                products = Product.objects.filter(price = lowest_price)
+                for product in products:
+                    all_products.append(product)
+
+        elif sort_by == 'highest-price':
+            all_products = []
+            all_prices = [product.price for product in Product.objects.all()]
+            bst = Node()
+# ********************************************************* Create *************************************************************************
+            bst.create(all_prices.pop(0))
+            # Insert
+            while all_prices:
+                bst.insert(all_prices.pop(0))
+            # Search and Delete
+            while bst:
+                highest_price, bst = bst.get_max_and_delete()
+                products = Product.objects.filter(price = highest_price)
+                for product in products:
+                    all_products.append(product)
         else:
             do_search = []
             for name in [product.title for product in Product.objects.all()]:
@@ -71,10 +131,14 @@ def products(request):
 def view_cart(request):
     if request.method == "POST":
         items = CartItem.objects.filter(user = request.user)
+        # O(n)
         for item in items:
             item.product.num_purchases += item.quantity
             item.product.save()
             item.delete()
+        all_product = Product.objects.all()
+        messages.success(request, "ชำระเงินเรียบร้อย")
+        return redirect('products')
     cart_items = CartItem.objects.filter(user=request.user)
     total_price = sum(item.product.price * item.quantity for item in cart_items)
     return render(request, 'cart.html', {'cart_items': cart_items, 'total_price': total_price})

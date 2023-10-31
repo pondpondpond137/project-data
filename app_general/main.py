@@ -21,16 +21,6 @@ class Node:
                     self.right = node
         else:
             return
-
-                
-    def print(self,p=""):
-        print(p,self.val)
-        if self.left:
-            q=p+"-"
-            self.left.print(q)
-        if self.right:
-            q=p+"*"
-            self.right.print(q)
                 
     def inorder(self): #น้อยไปมาก
         if self.left:
@@ -59,75 +49,101 @@ class Node:
         else:
             return self
         
-    def min_max(self):
-        if self.left:
-            if  self.left.val >= self.left.min().val:
-                print(self.val, end = " ")
-        if self.right:
-            if  self.left.val <= self.right.max().val:
-                print(self.val, end = " ")
-        
-    def remove(self, s,):
+
+    def remove(self, s):
         m = s.right
         l = s.right
         while m.left:
             l = m 
-            m = m.left 
+            m = m.left
         if m.val != l.val:
-            m.right = s.right 
-        l.left = None 
-        m.left = s.left
-        del s 
-        return m 
+            m.right = s.right
+        l.left = None
+        return m
 
     def delete(self, val):
         if self.val == val:
+            if not self.left and not self.right:
+                return True, None
+            if self.left and not self.right:
+                return True, self.left
+            if not self.left and self.right:
+                return True, self.right
+            if self.left and self.right:
+                m = self.remove(self)
+                self.val = m.val
+                self.right = m.right
             return True, self
+
         if self.left and val < self.val:
-            r,s = self.left.delete(val)
+            r, s = self.left.delete(val)
             if r:
-                if s.left is None and s.right is None:
-                    self.left = None 
-                    del s
-                elif s.left and s.right:
-                    m = self.remove(s)
-                    self.left = m 
-                elif s.left or s.right:
-                    self.left = s.left if s.left else s.right
-                    del s 
+                if s:
+                    self.left = s
+                else:
+                    self.left = None
+            return r, self
+
+        if self.right and val > self.val:
+            r, s = self.right.delete(val)
+            if r:
+                if s:
+                    self.right = s
+                else:
+                    self.right = None
+            return r, self
+
+        return False, None 
+    
+    def reverse_inorder(self):
         if self.right:
-            r,s = self.right.delete(val)
-            if r:
-                if s.left is None and s.right is None:
-                    self.right = None 
-                    del s 
-                elif s.left and s.right:
-                    m = self.remove(s)
-                    self.right = m 
-                elif s.left or s.right:
-                    self.right = s.left if s.left else s.right
-                    del s  
-                    return False, None 
+            self.right.reverse_inorder()
+        print(self.val, end=" ")
+        if self.left:
+            self.left.reverse_inorder()
+        
+    def reverse_inorder_set(self):
+        values = set()
+        if self.right:
+            values.update(self.right.reverse_inorder_set())
+        values.add(self.val)
+        if self.left:
+            values.update(self.left.reverse_inorder_set())
+        return values
+
+    # O (log n)
+    def get_max_and_delete(self):
+        if not self.right:
+            max_value = self.val
+            self = self.left
+            return max_value, self
+        max_value, self.right = self.right.get_max_and_delete()
+        return max_value, self
+
+    # O (log n)
+    def get_min_and_delete(self):
+        if not self.left:
+            min_value = self.val
+            self = self.right
+            return min_value, self
+        min_value, self.left = self.left.get_min_and_delete()
+        return min_value, self
         
     
             
 if __name__ == "__main__":
-    val = [54,39,87,63,12,8,47,99,100,46]
+    val = [17, 20, 2, 5, 10]
     root = Node()
+    # Create
     root.create(val.pop(0))
+    # Insert
     while val:
+        print(val)
         root.insert( val.pop(0) )
-    root.print()
-    print("Inorder=>" )
-    root.inorder()
-    r, n = root.search(100)
-    if r:
-        print("Found ",n.val)
-    else:
-        print("Not found...")
         
-    print("min/max")
-    mn = root.min()
-    mx = root.max()
-    print("Min=>",mn.val," Max=>", mx.val)
-    print(root.min_max())
+    # Search and Delete
+    while root:
+        root.print()
+
+        min_value, root = root.get_min_and_delete()
+        print(f"Min Value: {min_value}")
