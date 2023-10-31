@@ -1,0 +1,65 @@
+{% load static %}
+
+<style>
+  .navbar{
+    font-family: 'Prompt', sans-serif;
+    font-size: 20px; /* Adjust the font size as needed */
+    line-height: 0.7; /* Adjust the line height as needed */
+  }
+
+  .navbar.bg-light {
+    background-color: #C9A9A6 !important;
+    .form-control {
+      border-radius: 4.25rem;
+    }
+  }
+</style>
+</head>
+
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">
+          <img src="https://img.a4h6.c18.e2-4.dev/PyaResize.png" width="20" height="20" class="d-inline-block align-top" alt="">
+          PYA Shop
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+              <li class="nav-item">
+                <a class="nav-link" href="#">{{ user.username }}</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'logout' %}">ออกจากระบบ</a>
+              </li>
+            {% else %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">เข้าสู่ระบบ</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">ลงทะเบียน</a>
+              </li>
+            {% endif %}
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'products' %}">รายการสินค้า <span class="sr-only">(current)</span></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'cart' %}">ตะกร้าสินค้า</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">ติดต่อเรา</a>
+              </li>
+          </ul>
+        </div>
+      </nav>
+    
+      <!-- Add the Bootstrap JS and jQuery scripts -->
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</header>
