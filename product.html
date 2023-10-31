@@ -1,0 +1,87 @@
+{% extends "components/base.html" %}
+{% load static %}
+
+{% block title %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@100;300&display=swap" rel="stylesheet">
+<style>
+    .container-product {
+        display:flex; 
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .border-img-product {
+        background-color: white;
+        padding: 10px;
+        border: 1px solid rgb(201, 201, 201);
+        margin:10px 40px 10px 10px;
+        max-height: 220px;
+        max-width: 220px;
+    }
+    .img-product {
+        width: 200px;
+        max-width: 200px;
+        max-height: 220px;
+    }
+    .price-product {
+        font-size: 37px;
+        color: #e62739;
+        font-weight: 600;
+        margin-bottom: 0;
+    }
+    .detail-product {
+        justify-self: flex-end;
+        width:70%;
+        margin-left:40px;
+    }
+    .des-product {
+        width:40%;
+        font-size: 17px;
+        
+    }
+    .name-product {
+        color: #455d70;
+        font-size: 24px;
+        font-family: 'Kanit', sans-serif;
+        font-weight:600;
+    }
+</style>
+{% endblock %}
+
+
+{% block content %}
+    {% if product %}
+        <div class="ps-3 mt-4" style="font-family: 'Kanit', sans-serif; color:#455d70">
+            {{ product.title }}
+            <div style="display:flex;justify-content: center; font-family: 'Kanit', sans-serif;">
+                <div class="container-product">
+                    <div class="border-img-product">
+                        <img src="{% static product.image_relative_url %}" class="img-product">
+                    </div>
+                    <div class="des-product">
+                        <p class="name-product">{{ product.sub_title }}</p>
+                        <p>
+                            {{ product.description }}
+                        </p>
+                        <p>*ภาพประกอบใช้เพื่อการโฆษณาเท่านั้น</p>
+                    </div>
+                    <form method="POST">
+                        {% csrf_token %}
+                        <div class="detail-product">
+                            <p class="price-product">฿{{ product.price }}</p>
+                            <p style="margin-top:0; color:rgb(112, 112, 112); font-weight:lighter; font-family: sans-serif;">คงเหลือในสต๊อก {{ product.amount }} รายการ</p>
+                            <hr>
+                            <p>รวมยอดของ<input type="number" style="max-width:25%;" class="mx-2" value="1" name="amount">ชิ้น</p>
+                            <button type="submit" class="btn btn-warning pe-4">เพิ่มลงตะกร้า</button>
+                            <hr>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+    
+{% endblock %}
